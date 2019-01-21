@@ -23,7 +23,7 @@ MatAlg::Matrix<double> result = first*second;
 std::cout << MatAlg::toString(result) << std::endl;
 ```
 Output:  
->>>
+```
 [ 1.000000 2.000000 3.000000 ]
 [ 4.000000 5.000000 6.000000 ]
 [ 7.000000 8.000000 9.000000 ]
@@ -35,8 +35,7 @@ Output:
 [ 18.000000 24.000000 30.000000 ]
 [ 54.000000 69.000000 84.000000 ]
 [ 90.000000 114.000000 138.000000 ]
-
->>>
+```
 **What about saving and loading?**  
 As simple as previous example:  
 
