@@ -12,8 +12,7 @@ namespace MatAlg
 /*!
    \brief function that summs every element of matrix.
 */
-template<typename Type>
-Type elementSum(const Matrix<Type> &filter)
+double elementSum(const Matrix &filter)
 {
     double div = 0.0;
     for(uint x = 0; x < filter.getRowSize(); x++)
@@ -31,7 +30,7 @@ Type elementSum(const Matrix<Type> &filter)
     matrix with every element of another matrix.
 */
 template<typename Type>
-Type elementMul(const Matrix<Type> &first, const Matrix<Type> &second)
+Type elementMul(const Matrix &first, const Matrix &second)
 {
     double result = 0.0;
     uint columns = first.getColumnSize();
@@ -50,7 +49,7 @@ Type elementMul(const Matrix<Type> &first, const Matrix<Type> &second)
    \brief save matrix to text file.
 */
 template<typename Type>
-void saveMatrix(const std::string &fileName, const Matrix<Type> &matrix)
+void saveMatrix(const std::string &fileName, const Matrix &matrix)
 {
     std::ofstream textFile;
     textFile.open(fileName);
@@ -69,8 +68,7 @@ void saveMatrix(const std::string &fileName, const Matrix<Type> &matrix)
 /*!
    \brief load matrix from text file.
 */
-template<typename Type>
-Matrix<Type> loadMatrix(const std::string &fileName)
+Matrix loadMatrix(const std::string &fileName)
 {
     std::ifstream textFile;
     textFile.open(fileName);
@@ -102,8 +100,7 @@ Matrix<Type> loadMatrix(const std::string &fileName)
 /*!
    \brief convert matrix to human readable string.
 */
-template <typename Type>
-std::string toString(const Matrix<Type> &matrix)
+std::string toString(const Matrix &matrix)
 {
     std::string output = "";
     for(std::size_t i = 0; i < matrix.getRowSize(); i++)
@@ -122,21 +119,19 @@ std::string toString(const Matrix<Type> &matrix)
 /*!
    \brief create matrix with every element equal to 1.
 */
-template <typename Type>
-Matrix<Type> eye(const uint dimension)
+Matrix eye(const uint dimension)
 {
-    Matrix<Type> eyeMatrix(dimension, dimension, Type(0.0));
+    Matrix eyeMatrix(dimension, dimension, 0.0);
     for(std::size_t i = 0; i < dimension; i++)
     {
-       eyeMatrix[i][i] = Type(1.0);
+       eyeMatrix[i][i] = 1.0;
     }
     return eyeMatrix;
 }
 
-template <typename Type>
-Type dotProduct(const Matrix<Type> &l, const Matrix<Type> &r)
+double dotProduct(const Matrix &l, const Matrix &r)
 {
-    Type product = Type(0.0);
+    double product = 0.0;
     if(l.getColumnSize() == r.getColumnSize() && l.getColumnSize() > l.getRowSize())
     {
         for(std::size_t column = 0; column < l.getColumnSize(); column++)
@@ -159,10 +154,9 @@ Type dotProduct(const Matrix<Type> &l, const Matrix<Type> &r)
     }
 }
 
-template <typename Type>
-Matrix<Type> transpose(const Matrix<Type> &matrix)
+Matrix transpose(const Matrix &matrix)
 {
-    Matrix<Type> result(matrix.getColumnSize(), matrix.getRowSize(), Type(0.0));
+    Matrix result(matrix.getColumnSize(), matrix.getRowSize(), 0.0);
     for(std::size_t row = 0; row < matrix.getRowSize(); row++)
     {
         for(std::size_t column = 0; column < matrix.getColumnSize(); column++)
