@@ -48,7 +48,6 @@ Type elementMul(const Matrix &first, const Matrix &second)
 /*!
    \brief save matrix to text file.
 */
-template<typename Type>
 void saveMatrix(const std::string &fileName, const Matrix &matrix)
 {
     std::ofstream textFile;
@@ -81,7 +80,7 @@ Matrix loadMatrix(const std::string &fileName)
         throw std::logic_error("Error reading rows/columns.");
     if(rows == 0 || columns == 0)
         throw std::logic_error("Error reading matrix from file (0 rows/columns)");
-    Matrix<Type> matrix(rows, columns, Type(0.0));
+    Matrix matrix(rows, columns, 0.0);
     for(std::size_t row = 0; row < rows; row++)
     {
         for(std::size_t column = 0; column < columns; column++)

@@ -31,7 +31,7 @@ private:
     */
     void checkInitListSize(const std::initializer_list<std::initializer_list<double>> &initList)
     {
-        uint columnSize = initList.begin()->size();
+        auto columnSize = initList.begin()->size();
         for(auto row: initList)
             if(row.size() != columnSize)
                 throw std::range_error("Matrix row size should be same in initializer list.");
@@ -194,8 +194,9 @@ public:
         if(this->columns != r.getColumnSize() ||
                 this->rows != r.getRowSize())
             throw std::range_error("Matrix::operator+=:  Matrices with different dimensions cannot be summed."
-                                   "this dimensions (columns: " + this->getColumnSize() + ", rows: " + this->getRowSize() +") != "
-                                   "r dimensions (columns: " + r.getColumnSize() + ", rows: " + r.getRowSize() +")");
+                                   "this dimensions (columns: " + std::to_string(this->getColumnSize()) +
+                                   ", rows: " + std::to_string(this->getRowSize()) +") != r dimensions (columns: "
+                                   + std::to_string(r.getColumnSize()) + ", rows: " + std::to_string(r.getRowSize()) +")");
         for(uint i = 0; i < columns; i++)
         {
             for(uint j = 0; j < rows; j++)
@@ -210,8 +211,10 @@ public:
         if(this->columns != r.getColumnSize() ||
                 this->rows != r.getRowSize())
             throw std::range_error("Matrix::operator-=:  Matrices with different dimensions cannot be subtracted."
-                                   "this dimensions (columns: " + this->getColumnSize() + ", rows: " + this->getRowSize() +") != "
-                                   "r dimensions (columns: " + r.getColumnSize() + ", rows: " + r.getRowSize() +")");
+                                   "this dimensions (columns: " + std::to_string(this->getColumnSize()) +
+                                   ", rows: " + std::to_string(this->getRowSize()) +") != "
+                                   "r dimensions (columns: " + std::to_string(r.getColumnSize()) + ", rows: " +
+                                   std::to_string(r.getRowSize()) +")");
         for(uint i = 0; i < columns; i++)
         {
             for(uint j = 0; j < rows; j++)
@@ -252,10 +255,11 @@ Matrix operator+(const Matrix& l, const Matrix& r)
     if(l.getColumnSize() != r.getColumnSize() ||
             l.getRowSize() != r.getRowSize())
         throw std::range_error("Matrix::operator+:  Matrices with different dimensions cannot be summed."
-                               "l dimensions (columns: " + l.getColumnSize() + ", rows: " + l.getRowSize() +") != "
-                               "r dimensions (columns: " + r.getColumnSize() + ", rows: " + r.getRowSize() +")");
+                               "l dimensions (columns: " + std::to_string(l.getColumnSize()) + ", rows: " +
+                               std::to_string(l.getRowSize()) +") != r dimensions (columns: " +
+                               std::to_string(r.getColumnSize()) + ", rows: " + std::to_string(r.getRowSize()) +")");
 
-    Matrix out = Matrix<Type>(l.getRowSize(), l.getColumnSize(), 0.0);
+    Matrix out = Matrix(l.getRowSize(), l.getColumnSize(), 0.0);
     for(uint i = 0; i < l.getColumnSize(); i++)
     {
         for(uint j = 0; j < l.getRowSize(); j++)
@@ -273,7 +277,7 @@ Matrix operator*(const Matrix &l, const Matrix &r)
                                "(which is "+ std::to_string(l.getRowSize()) + ") should be == r "
                                "column size(which is " + std::to_string(r.getColumnSize()) + ").");
 
-    Matrix<Type> result(l.getRowSize(), r.getColumnSize(), 0.0);
+    Matrix result(l.getRowSize(), r.getColumnSize(), 0.0);
     for(uint row = 0; row < l.getRowSize(); row++)
     {
         for(uint rColumn = 0; rColumn < r.getColumnSize(); rColumn++)
