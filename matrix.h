@@ -42,16 +42,14 @@ private:
     */
     void initMatrixValue(const uint row, const uint column, const double value)
     {
-        this->matrix.clear();
         this->rows = row;
         this->columns = column;
+        matrix.clear();
+        matrix.shrink_to_fit();
+        matrix.reserve(rows);
         for(uint i = 0; i < rows; i++)
         {
-            std::vector<double> row;
-            for(uint j = 0; j < columns; j++)
-            {
-                row.push_back(value);
-            }
+            std::vector<double> row(columns, value);
             matrix.push_back(row);
         }
     }
@@ -74,14 +72,13 @@ public:
         checkInitListSize(initList);
         rows = initList.size();
         columns = initList.begin()->size();
-
+        matrix.reserve(rows);
         for(const auto &row: initList)
         {
             std::vector<double> matrixRow;
+            matrixRow.reserve(columns);
             for(const auto &element: row)
-            {
                 matrixRow.push_back(element);
-            }
             matrix.push_back(row);
         }
     }
@@ -94,9 +91,12 @@ public:
         rows = r.getRowSize();
         columns = r.getColumnSize();
         matrix.clear();
+        matrix.shrink_to_fit();
+        matrix.reserve(rows);
         for(uint row = 0; row < rows; row++)
         {
             std::vector<double> matrixRow;
+            matrixRow.reserve(columns);
             for(uint column = 0; column < columns; column++)
             {
                 matrixRow.push_back(r[row][column]);
